@@ -4,6 +4,7 @@
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://baemyungsoo.github.io/medappwebsite/)
 
 ## About
 
