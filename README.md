@@ -15,6 +15,7 @@ This is the marketing/landing page for **cura**, a medication adherence app that
 - Services overview (smart session scheduling, verified drug-safety checks, adherence insights, family care coordination)
 - Testimonials carousel (swipeable on mobile, grid on desktop)
 - Beta signup enquiry form with client-side validation, honeypot spam protection, and a [Formspree](https://formspree.io/) submission endpoint
+- Floating WhatsApp chat widget with suggested queries, linking straight to a WhatsApp conversation
 - Fully responsive, accessible (skip link, focus management, `prefers-reduced-motion` support), and dependency-free
 
 ## Installation
