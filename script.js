@@ -11,6 +11,9 @@
  */
 const FORM_ENDPOINT = 'https://formspree.io/f/xkjwepry';
 
+/** WhatsApp number for the chat widget, in international format with no symbols. */
+const WHATSAPP_NUMBER = '6596277734';
+
 document.addEventListener('DOMContentLoaded', () => {
   setCurrentYear();
   initNav();
@@ -18,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFadeInObserver();
   initTestimonialCarousel();
   initFormValidation();
+  initWhatsAppWidget();
 });
 
 /** Returns true when the visitor has requested reduced motion. */
@@ -300,6 +304,53 @@ function showSuccessPanel(form, confirmationPanel) {
     heading.setAttribute('tabindex', '-1');
     heading.focus();
   }
+}
+
+/** Builds a wa.me link for the given number, with an optional prefilled message. */
+function buildWhatsAppLink(number, message) {
+  const base = `https://wa.me/${number}`;
+  return message ? `${base}?text=${encodeURIComponent(message)}` : base;
+}
+
+/** Wires up the floating WhatsApp widget: toggle, suggested-query links, and dismissal. */
+function initWhatsAppWidget() {
+  const widget = document.querySelector('.whatsapp-widget');
+  const toggle = document.getElementById('whatsapp-toggle');
+  const panel = document.getElementById('whatsapp-panel');
+  const closeBtn = document.getElementById('whatsapp-close');
+  const cta = document.getElementById('whatsapp-cta');
+  if (!widget || !toggle || !panel) return;
+
+  cta.href = buildWhatsAppLink(WHATSAPP_NUMBER);
+  widget.querySelectorAll('.whatsapp-suggestion').forEach((link) => {
+    link.href = buildWhatsAppLink(WHATSAPP_NUMBER, link.dataset.msg);
+  });
+
+  const openWidget = () => {
+    widget.classList.add('is-open');
+    toggle.setAttribute('aria-expanded', 'true');
+    closeBtn.focus();
+  };
+
+  const closeWidget = () => {
+    widget.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.focus();
+  };
+
+  toggle.addEventListener('click', () => {
+    widget.classList.contains('is-open') ? closeWidget() : openWidget();
+  });
+
+  closeBtn.addEventListener('click', closeWidget);
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && widget.classList.contains('is-open')) closeWidget();
+  });
+
+  document.addEventListener('click', (event) => {
+    if (widget.classList.contains('is-open') && !widget.contains(event.target)) closeWidget();
+  });
 }
 
 /** Restores the empty form after "Send another enquiry" is clicked. */
